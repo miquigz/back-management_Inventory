@@ -1,7 +1,9 @@
+const version = '/api/v1';
 const {routerAuth} = require('./routes/auth.routes')
 const properties = require('./config/properties');
 const res = require('express/lib/response');
 const DB = require('./config/db')
+const cors = require('cors');
 //Init database
 DB();
 const express = require('express');
@@ -20,7 +22,7 @@ app.get('/', (req, res)=>{
     res.send("Home.")
 })
 
-app.use('/auth' ,routerAuth);
+app.use(`${version}/auth` ,routerAuth);
 
 
 
