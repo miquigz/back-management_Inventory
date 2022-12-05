@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 // mongoose.set('useCreateIndex', true);
-const userSchema = new Schema({
+
+const employeeSchema = new Schema({
     name:{
         type: String,
         required: true,
@@ -18,14 +19,26 @@ const userSchema = new Schema({
         trim: true,
         unique:true
     },
-    password:{
-        type: String,
-        required: true,
-        trim: true
+    occupation:{
+        type:String,
+        required:true,
+        trim:true
+    },
+    salary:{
+        type:Number,
+        required:true
+    },
+    phone:{
+        type:String,
+        required:false
+    },
+    address:{
+        tpye:String,
+        required:false
     }
 },
 {
     timestamps: true//fecha create, and edit
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Employee', employeeSchema);

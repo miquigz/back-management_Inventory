@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-const dbURL = require('./properties').DB;
+require('dotenv').config();//TODO: doble import?
+
+const dbURL = process.env.DB_LOCAL;
 
 module.exports = async ()=>{
     try {
