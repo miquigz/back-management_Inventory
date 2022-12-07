@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { userSchema } = require('../models/auth')
-
+//TODO: Ver userSchema si <> de authSchema
 authSchema.statics = {
     create: function (data, cb){
         const user = new this(data);

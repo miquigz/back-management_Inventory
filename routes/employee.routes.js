@@ -10,7 +10,7 @@ routerEmployee.get('/getAll', getEmployees);
 routerEmployee.post('/create', postCreateEmployee);
 
 //TODO:MethodOverride
-// routerEmployee.put('/edit/:id', putEditEmployee)
+routerEmployee.put('/edit/:id', putEditEmployee)
 
 // routerEmployee.delete('/');
 

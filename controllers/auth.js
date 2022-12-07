@@ -4,17 +4,18 @@ const bcrypt = require('bcryptjs');
 
 const createUser = async (req, res, next)=>{
     try {
+        if( await User.exists({email:req.body.email}))
+            res.status(409).send({message:'Email already exists'});
+
         const newUser = {
             name: req.body.name,
             lastname:req.body.lastname,
             email: req.body.email,
-            occupation:'empleado', //Defect occupation, (Only edited by rol admin)
             password: bcrypt.hashSync(req.body.password) //Encrypt password
         }
         User.create(newUser, (err, user)=>{ //Params user is = user saved in database
-            if(err && err.code === 11000) return res.status(409).send({message:'Email already exists'});
-            if (err) return res.status(500).send('Server error.');
-
+            if (err) return res.status(500).send('Server error - Create User.' + err );
+            
             const expiresIn = 24*60*60; 
             const accessToken = jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn:expiresIn });
             const dataUser = {
@@ -41,7 +42,6 @@ const loginUser = async (req, res)=>{
         if (userSearchDB && bcrypt.compareSync(userRequest.password, userSearchDB.password) ){            
             const expiresIn = 24*60*60; //24hours
             const accessToken = jwt.sign({id: userSearchDB.id}, process.env.SECRET_KEY, { expiresIn: expiresIn } );
-
             const dataUser = { //response user, return name+email + token
                 name: userSearchDB.name,
                 email: userSearchDB.email,

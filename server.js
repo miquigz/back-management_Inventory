@@ -29,7 +29,6 @@ app.use(`${apiv1}/auth` ,routerAuth);
 app.use(`${apiv1}/employees`, routerEmployee);
 
 
-
 const PORT = process.env.PORT;
 app.listen(PORT, (err)=>{ 
     if(err) throw new Error('Ocurrió un problema con el servidor: ', err);

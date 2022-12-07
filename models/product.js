@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+
 // mongoose.set('useCreateIndex', true);
+
 const productSchema = new Schema({
     code:{
         type:String,
@@ -20,6 +22,10 @@ const productSchema = new Schema({
         tpye:Number,
         required:true
     },
+    finalPrice:{
+        tpye:Number,
+        required:false
+    },
     stock:{
         type: Number,
         required: true
@@ -32,6 +38,10 @@ const productSchema = new Schema({
     monthlyStock:{
         type:Number,
         required:true
+    },
+    iva:{
+        type:Number,
+        required:false,
     },
     source:{
         type:String,
