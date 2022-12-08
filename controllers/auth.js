@@ -16,8 +16,8 @@ const createUser = async (req, res, next)=>{
         User.create(newUser, (err, user)=>{ //Params user is = user saved in database
             if (err) return res.status(500).send('Server error - Create User.' + err );
             
-            const expiresIn = 24*60*60; 
-            const accessToken = jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn:expiresIn });
+            const expiresIn = "2h"; 
+            const accessToken = jwt.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: expiresIn });
             const dataUser = {
                 name: user.name,
                 email: user.email,

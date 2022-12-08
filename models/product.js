@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 // mongoose.set('useCreateIndex', true);
 
-const productSchema = new Schema({
+const productSchema = new mongoose.Schema({
     code:{
         type:String,
         required:true
@@ -19,7 +19,7 @@ const productSchema = new Schema({
         trim:true
     },
     price:{ //unit price
-        tpye:Number,
+        type:Number,
         required:true
     },
     finalPrice:{
@@ -52,4 +52,4 @@ const productSchema = new Schema({
     timestamps: true//fecha create, and edit
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Product', productSchema);

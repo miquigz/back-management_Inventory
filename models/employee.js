@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 // mongoose.set('useCreateIndex', true);
 
-const employeeSchema = new Schema({
+const employeeSchema = new mongoose.Schema({
     name:{
         type: String,
         required: true,
