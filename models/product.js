@@ -6,7 +6,8 @@ const Schema = mongoose.Schema;
 const productSchema = new mongoose.Schema({
     code:{
         type:String,
-        required:true
+        required:true,
+        trim:true
     },
     name:{
         type: String,
@@ -21,10 +22,6 @@ const productSchema = new mongoose.Schema({
     price:{ //unit price
         type:Number,
         required:true
-    },
-    finalPrice:{
-        tpye:Number,
-        required:false
     },
     stock:{
         type: Number,
@@ -47,7 +44,6 @@ const productSchema = new mongoose.Schema({
         type:String,
         required:false
     }
-    
 },{
     timestamps: true//fecha create, and edit
 });

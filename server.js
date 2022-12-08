@@ -2,6 +2,7 @@ const apiv1 = '/api/v1';
 const res = require('express/lib/response');
 const DB = require('./config/db')
 const cors = require('cors');
+const methodOverride = require('method-override')
 require('dotenv').config()
 //Init database
 DB();
@@ -18,18 +19,18 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
+app.use(methodOverride('_method'))
+
 app.use(cors()); //allow all domains: access to the API
 //TODO: Production change
-
 
 // app.get('/', (req, res)=>{
 //     res.send("Home.")
 // })
 
 app.use(`${apiv1}/auth` ,routerAuth);
-app.use(`${apiv1}/employees`, routerEmployee);
+app.use(`${apiv1}/employee`, routerEmployee);
 app.use(`${apiv1}/product`, routerProduct)
-
 
 const PORT = process.env.PORT;
 app.listen(PORT, (err)=>{ 

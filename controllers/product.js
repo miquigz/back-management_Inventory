@@ -9,6 +9,20 @@ const getProducts = async (req, res)=>{
     }
 }
 
+const getSpecificProduct = async (req, res)=>{
+    try {
+        console.log(req.params);
+        if ( !(await Product.exists({code:req.params.code})) )
+            res.status(400).send({message: `Product with code:${req.params.code} does not exist`})
+        
+        await Product.findOne({code:req.params.code})
+        .then((product)=> res.status(200).send(product))
+        .catch((err)=>{ console.log(err); return res.status(400).send({message:`error:${err}`}) });
+    } catch (error) {
+        console.log(`Error en getSpecificProduct `, error)
+    }
+}
+
 const postCreateProduct = async (req, res)=>{
     try {
         if(await Product.exists({code: req.body.code}))
@@ -23,7 +37,7 @@ const postCreateProduct = async (req, res)=>{
         }
         Product.create(newProduct, (err, Product)=>{
             if (err) return res.send({message:'ProducCreate - Server error.', err});
-            res.status(200).send();
+            res.status(200).send(Product);
         })
     } catch (error) {
         console.log(`Error en postCreateProduct `, error)
@@ -53,8 +67,12 @@ const putEditProduct = async (req, res)=>{
 
 const deleteProduct = async (req, res)=>{
     try {
-        const codeDelete = req.body.code;
-        Product.findOneAndDelete({code:req.body.code}).catch((err)=> res.status(400).send({message: "Error en delete product:", err}));
+        new URLSearchParams(req.params.code).toString();
+        const codeDelete = req.params.code;
+        if ( !(await Product.exists({code:codeDelete})) )
+            res.status(409).send({message: "Code does not exists"})
+        await Product.findOneAndDelete({code:codeDelete}).catch((err)=> res.status(400).send({message: "Error en delete product:", err}));
+        res.status(200).send({message: "Ok, deleted product"});
     } catch (error) {
         console.log(`Error en deleteProduct `, error);
     }
@@ -64,5 +82,6 @@ module.exports = {
     getProducts,
     postCreateProduct,
     putEditProduct,
-    deleteProduct
+    deleteProduct,
+    getSpecificProduct
 }

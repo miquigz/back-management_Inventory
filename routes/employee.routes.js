@@ -1,18 +1,24 @@
 const express = require('express');
 const routerEmployee = express.Router();
 
-const { getEmployees, postCreateEmployee, putEditEmployee } = require('../controllers/employee');
+const { getEmployees, postCreateEmployee, putEditEmployee, deleteEmployee, getSpecificEmployee, getAllCategories } = require('../controllers/employee');
+const verifyToken = require('../middlewares/auth');
 
 // const { getEmployees ,createEmployee, editEmployee, deleteEmployee}
 
-routerEmployee.get('/getAll', getEmployees);
+routerEmployee.get('/employees', verifyToken ,getEmployees);
 
-routerEmployee.post('/create', postCreateEmployee);
+routerEmployee.get('/specific/:email', verifyToken ,getSpecificEmployee);
 
-//TODO:MethodOverride
-routerEmployee.put('/edit/:id', putEditEmployee)
+routerEmployee.get('/categories', verifyToken, getAllCategories);
 
-// routerEmployee.delete('/');
+routerEmployee.post('/create', verifyToken , postCreateEmployee);
+
+routerEmployee.put('/edit/:email', verifyToken, putEditEmployee)
+
+routerEmployee.delete('/delete/:email', verifyToken, deleteEmployee);
+
+
 
 
 module.exports = {

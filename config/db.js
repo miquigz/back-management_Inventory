@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-require('dotenv').config();//TODO: doble import?
+require('dotenv').config();
 
 const dbURL = process.env.DB_LOCAL;
 
