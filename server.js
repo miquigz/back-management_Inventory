@@ -10,7 +10,8 @@ DB();
 const express = require('express');
 const { routerEmployee } = require('./routes/employee.routes');
 const { routerProduct } = require('./routes/product.routes');
-const { routerAuth } = require('./routes/auth.routes')
+const { routerAuth } = require('./routes/auth.routes');
+const { routerDev } = require('./routes/dev.routes');
 const app = express();
 const router = express.Router();
 
@@ -31,6 +32,7 @@ app.use(cors()); //allow all domains: access to the API
 app.use(`${apiv1}/auth` ,routerAuth);
 app.use(`${apiv1}/employee`, routerEmployee);
 app.use(`${apiv1}/product`, routerProduct)
+app.use(`${apiv1}/dev`, routerDev);
 
 const PORT = process.env.PORT;
 app.listen(PORT, (err)=>{ 

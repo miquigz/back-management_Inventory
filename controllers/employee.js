@@ -20,7 +20,7 @@ const getSpecificEmployee = async (req, res)=>{
     }
 }
 
-const getAllCategories = async (req, res)=>{
+const getCategories = async (req, res)=>{
     try {
         const categories = await Employee.distinct("occupation");
         res.status(200).send(categories);
@@ -74,7 +74,7 @@ const deleteEmployee = async (req, res)=>{
 module.exports = {
     getEmployees,
     getSpecificEmployee,
-    getAllCategories,
+    getCategories,
     postCreateEmployee,
     putEditEmployee,
     deleteEmployee

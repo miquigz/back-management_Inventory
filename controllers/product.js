@@ -23,6 +23,15 @@ const getSpecificProduct = async (req, res)=>{
     }
 }
 
+const getCategoriesProduct = async (req, res)=>{
+    try {
+        const categories = await Product.distinct("category");
+        res.status(200).send(categories);
+    } catch (error) {
+        console.log(`Error en getCategoriesProduct `, error)
+    }
+}
+
 const postCreateProduct = async (req, res)=>{
     try {
         if(await Product.exists({code: req.body.code}))
@@ -33,7 +42,7 @@ const postCreateProduct = async (req, res)=>{
             description:req.body.description, price:req.body.price,
             stock:req.body.stock, category:req.body.category,
             monthlyStock:req.body.monthlyStock, iva:req.body.iva,
-            source:req.body.source//origin 
+            source:req.body.source, acquisitionPrice:req.body.acquisitionPrice
         }
         Product.create(newProduct, (err, Product)=>{
             if (err) return res.send({message:'ProducCreate - Server error.', err});
@@ -58,6 +67,7 @@ const putEditProduct = async (req, res)=>{
         product.stock = req.body.stock; 
         product.monthlyStock = req.body.monthlyStock;
         product.source = req.body.source;
+        product.acquisitionPrice = req.body.acquisitionPrice;
         product = await product.save();
         res.status(200).send(product);
     } catch (error) {
@@ -80,6 +90,7 @@ const deleteProduct = async (req, res)=>{
 
 module.exports = {
     getProducts,
+    getCategoriesProduct,
     postCreateProduct,
     putEditProduct,
     deleteProduct,
