@@ -4,7 +4,7 @@ const { faker } = require('@faker-js/faker')
 const generateProduct = () => {
     const price = faker.commerce.price(15, 350);
     const product = {
-        code:faker.commerce.product(),
+        code:faker.lorem.word(2).toUpperCase() + faker.random.numeric(2),
         name:faker.commerce.product(),
         description:faker.commerce.productAdjective(),
         price:price,

@@ -19,8 +19,6 @@ routerEmployee.put('/edit/:email', verifyToken, putEditEmployee)
 routerEmployee.delete('/delete/:email', verifyToken, deleteEmployee);
 
 
-
-
 module.exports = {
     routerEmployee
 };
