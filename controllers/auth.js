@@ -1,6 +1,7 @@
 const User = require('../models/auth')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const config = process.env;
 
 const createUser = async (req, res, next)=>{
     try {
@@ -58,7 +59,25 @@ const loginUser = async (req, res)=>{
     }
 }
 
+const getValidToken = async (req, res)=>{
+    try {
+        const token = req.params.token
+        if (!token) {
+            res.status(403).send(false);
+        }
+
+        const decoded = jwt.verify(token, config.SECRET_KEY);
+        console.log(decoded);
+        res.send(await User.exists({id: decoded.id}) !== null);
+    } catch (error) {
+        console.log(`Error en validToken `, error)
+        console.log("false");
+        res.send(false);
+    }
+}
+
 module.exports = {
     createUser,
-    loginUser
+    loginUser,
+    getValidToken
 }
